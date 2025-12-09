@@ -112,6 +112,41 @@ An AI orchestrator (e.g., LangGraph, CrewAI, AutoGen) loads UAPF as:
 
 This enables full organizational operations to be executed by agents.
 
+## Who should use this repo?
+
+This repository is intended for:
+
+- **Tool vendors** adding UAPF import/export to modelling tools.
+- **AI platform and agent orchestrator authors** who want to execute UAPF packages.
+- **Enterprise / government architects** defining canonical, cross-tool process models.
+
+If you simply want to load a `.uapf` file in your application, you may prefer using:
+
+- [`uapf-python`](https://github.com/UAPFormat/uapf-python)
+- [`uapf-typescript`](https://github.com/UAPFormat/uapf-typescript)
+
+which both embed and track the schemas from this repository.
+
+## Validation workflow
+
+A typical validation flow for a `.uapf` package is:
+
+1. Unzip the package.
+2. Validate `manifest.json` against `schemas/uapf-manifest.schema.json`.
+3. Validate `agents/*.json` against:
+   - `schemas/uapf-roles.schema.json`
+   - `schemas/uapf-capabilities.schema.json`
+   - `schemas/uapf-bindings.schema.json`
+4. Validate integration metadata:
+   - `integration/mcp-tools.json` → `schemas/uapf-mcp-tools.schema.json`
+   - `integration/a2a-schemas.json` → `schemas/uapf-a2a-schemas.schema.json`
+
+Language SDKs and conformance fixtures:
+
+- Parsers & validators: [`uapf-python`](https://github.com/UAPFormat/uapf-python), [`uapf-typescript`](https://github.com/UAPFormat/uapf-typescript)
+- Conformance fixtures: [`uapf-conformance`](https://github.com/UAPFormat/uapf-conformance)
+
+
 ## Roadmap
 ### v1.0 Goals
 - Finalize schema versioning.
@@ -130,4 +165,4 @@ This enables full organizational operations to be executed by agents.
 MIT License — open standard, free to use, free to implement.
 
 ## Contributions
-Pull requests, issues, and proposals are welcome. Standardization direction is coordinated under the Neksus AI / UAPF working group.
+Pull requests, issues, and proposals are welcome. Standardization direction is coordinated under the Algomation / UAPF working group.
