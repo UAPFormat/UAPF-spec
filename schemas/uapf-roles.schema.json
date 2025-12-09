@@ -1,0 +1,57 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://schemas.uapf.org/uapf-roles.schema.json",
+  "title": "UAPF Roles",
+  "description": "Defines organizational and agent roles for process execution.",
+  "type": "object",
+  "properties": {
+    "roles": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "description": "Unique identifier for the role."
+          },
+          "name": {
+            "type": "string",
+            "description": "Human readable role name."
+          },
+          "description": {
+            "type": "string",
+            "description": "Summary of responsibilities for the role."
+          },
+          "responsibilities": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "description": "List of responsibilities or duties."
+          },
+          "capabilities": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "description": "Referenced capability identifiers that the role can perform."
+          },
+          "metadata": {
+            "type": "object",
+            "description": "Additional role metadata for governance or compliance.",
+            "additionalProperties": true
+          }
+        },
+        "required": [
+          "id",
+          "name"
+        ],
+        "additionalProperties": false
+      }
+    }
+  },
+  "required": [
+    "roles"
+  ],
+  "additionalProperties": false
+}

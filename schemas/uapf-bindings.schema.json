@@ -1,0 +1,57 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://schemas.uapf.org/uapf-bindings.schema.json",
+  "title": "UAPF Bindings",
+  "description": "Maps process tasks to roles, capabilities, and tools for execution.",
+  "type": "object",
+  "properties": {
+    "bindings": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "taskId": {
+            "type": "string",
+            "description": "Identifier of the BPMN/CMMN task being bound."
+          },
+          "roleId": {
+            "type": "string",
+            "description": "Role responsible for executing the task."
+          },
+          "capabilityId": {
+            "type": "string",
+            "description": "Capability leveraged during task execution."
+          },
+          "toolIds": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "description": "MCP tool identifiers available to the executor."
+          },
+          "policies": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "description": "Policy or compliance references applied to this binding."
+          },
+          "metadata": {
+            "type": "object",
+            "description": "Additional metadata including prompts or guardrails.",
+            "additionalProperties": true
+          }
+        },
+        "required": [
+          "taskId",
+          "roleId"
+        ],
+        "additionalProperties": false
+      }
+    }
+  },
+  "required": [
+    "bindings"
+  ],
+  "additionalProperties": false
+}

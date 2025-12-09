@@ -1,0 +1,64 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://schemas.uapf.org/uapf-capabilities.schema.json",
+  "title": "UAPF Capabilities",
+  "description": "Defines atomic capabilities that agents or systems can perform.",
+  "type": "object",
+  "properties": {
+    "capabilities": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "description": "Unique identifier for the capability."
+          },
+          "name": {
+            "type": "string",
+            "description": "Human readable capability name."
+          },
+          "description": {
+            "type": "string",
+            "description": "Description of the capability behavior."
+          },
+          "inputs": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "description": "List of expected input parameters."
+          },
+          "outputs": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "description": "List of produced outputs."
+          },
+          "tools": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "description": "Referenced MCP tool identifiers that enable the capability."
+          },
+          "metadata": {
+            "type": "object",
+            "description": "Additional governance metadata for the capability.",
+            "additionalProperties": true
+          }
+        },
+        "required": [
+          "id",
+          "name"
+        ],
+        "additionalProperties": false
+      }
+    }
+  },
+  "required": [
+    "capabilities"
+  ],
+  "additionalProperties": false
+}

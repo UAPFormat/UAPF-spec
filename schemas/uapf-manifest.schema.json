@@ -1,0 +1,97 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://schemas.uapf.org/uapf-manifest.schema.json",
+  "title": "UAPF Manifest",
+  "description": "Top-level manifest describing the contents of a UAPF package.",
+  "type": "object",
+  "properties": {
+    "id": {
+      "type": "string",
+      "description": "Unique identifier for the UAPF package."
+    },
+    "name": {
+      "type": "string",
+      "description": "Human readable name of the process or package."
+    },
+    "version": {
+      "type": "string",
+      "description": "Semantic version of the package contents."
+    },
+    "description": {
+      "type": "string",
+      "description": "Extended description of the process."
+    },
+    "created": {
+      "type": "string",
+      "format": "date-time",
+      "description": "Creation timestamp for the manifest."
+    },
+    "modified": {
+      "type": "string",
+      "format": "date-time",
+      "description": "Last modified timestamp for the manifest."
+    },
+    "authors": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "description": "List of authors or contributors."
+    },
+    "components": {
+      "type": "object",
+      "properties": {
+        "process": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "description": "Relative paths to BPMN/CMMN process definitions."
+        },
+        "decisions": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "description": "Relative paths to DMN decision models and glossary files."
+        },
+        "agents": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "description": "Relative paths to agent role, capability, and binding definitions."
+        },
+        "integration": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "description": "Relative paths to integration resources including MCP and A2A schemas."
+        },
+        "metadata": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "description": "Relative paths to metadata files such as provenance or compliance."
+        }
+      },
+      "required": [
+        "process",
+        "decisions",
+        "agents",
+        "integration",
+        "metadata"
+      ],
+      "additionalProperties": false
+    }
+  },
+  "required": [
+    "id",
+    "name",
+    "version",
+    "components"
+  ],
+  "additionalProperties": false
+}
