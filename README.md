@@ -33,6 +33,9 @@ UAPF solves this by providing:
 - **Composable:** BPMN + DMN + CMMN + MCP + A2A → one algorithmic package.
 - **Governable:** Supports metadata, provenance, auditability, and compliance.
 
+## UAPF Enterprise Hierarchy (Tier 0–4)
+UAPF packages are organized into five tiers that scale from atomic, reusable tasks (Tier 4) to complete enterprise digital twins (Tier 0). The hierarchy enforces downward-only dependencies, enabling predictable composition, governance, and reuse across domains, cross-functional processes, departmental variations, and enterprise-wide bundles.
+
 ## Specification Structure
 A UAPF package is a zip-based container:
 
