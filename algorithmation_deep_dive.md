@@ -1,5 +1,23 @@
 # Algorithmation Deep Dive: Governance, Identity, Architecture & Implementation
 
+> **Terminology note — Layers vs Tiers**
+>
+> This document uses the term **layers** (Layer 1–5) to describe the
+> *runtime and governance architecture* of an algorithmated enterprise:
+> audit, identity, decision logic, risk, and human-in-the-loop oversight.
+>
+> The UAPF core specification also defines **tiers** (Tier 0–4) in
+> `specification/04-tier-hierarchy/04-tier-hierarchy.md`. Those tiers
+> describe the *packaging and scope hierarchy* of UAPF artifacts:
+> from atomic task packages (Tier 4) up to full enterprise bundles
+> (Tier 0).
+>
+> Layers and tiers are **orthogonal concepts**:
+> - **Layers** = how the enterprise algorithm stack is structured and governed at runtime.
+> - **Tiers**  = how UAPF files are organized and composed to represent the enterprise.
+>
+> They are designed to work together, not to replace each other.
+
 ---
 
 ## PART I: THE ORGANIZATIONAL CHANGE IMPERATIVE

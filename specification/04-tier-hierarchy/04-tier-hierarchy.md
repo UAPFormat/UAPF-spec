@@ -1,32 +1,46 @@
 # UAPF Specification — Chapter 4: Multi-Tier Enterprise Algorithm Hierarchy (Tier 0–Tier 4)
 
-_Version 1.0 — Draft for Inclusion in UAPF Core Spec_
+_Version 0.9 — Draft_
 
 ## 4.0 Overview
 
-The Unified Algorithmic Process Format (UAPF) supports hierarchical algorithm packaging to represent the structure of real-world enterprises.
-This hierarchy allows processes, decisions, tasks, and resource bindings to be organized in composable, reusable, versioned UAPF modules.
+The Unified Algorithmic Process Format (UAPF) supports **hierarchical algorithm packaging** to represent
+the structure of real-world enterprises. This hierarchy allows processes, decisions, tasks, and resource
+bindings to be organized into **composable, reusable, versioned UAPF modules**.
 
-UAPF defines five tiers, from atomic tasks (Tier 4) to full enterprise representations (Tier 0).
+UAPF defines **five tiers**, from atomic task packages (Tier 4) to full enterprise representations (Tier 0):
+
+- **Tier 0** — Enterprise bundle (digital twin of the organization)
+- **Tier 1** — Enterprise domains (Finance, HR, IT, etc.)
+- **Tier 2** — Cross-functional domain processes (Invoice-to-Pay, Hire-to-Retire, etc.)
+- **Tier 3** — Departmental / regional subprocesses and variants
+- **Tier 4** — Atomic task algorithms
 
 This hierarchy is essential for:
 
 - enterprise-wide algorithm governance
-- process reuse
+- process reuse and modularity
 - AI agent capability mapping
-- digital twins of organizations
+- digital twin representations of organizations
 - versioning and dependency management
-- portability across systems and environments
+- portability across environments
+
+> **Note:** Tiers describe the **packaging and scope hierarchy** of UAPF artifacts.
+> They are orthogonal to the **runtime architecture layers** described in `algorithmation_deep_dive.md`.
+
+---
 
 ## 4.1 Tier Definitions
 
-### ⭐ Tier 0 — Enterprise UAPF Bundle ("Digital Twin Package")
+### 4.1.1 Tier 0 — Enterprise UAPF Bundle (“Digital Twin Package”)
 
-**Purpose:**
-Represents the entire enterprise algorithmic structure in a single portable package.
-A Tier 0 package is a bundle containing all Tier 1–4 UAPFs.
+**Purpose**
 
-**Characteristics:**
+Tier 0 represents the **entire enterprise algorithmic structure** in a single portable package.
+A Tier 0 bundle contains all Tier 1–4 UAPF artifacts required to reconstruct the organization’s
+behavior in another environment.
+
+**Characteristics**
 
 - Highest-level container
 - Portable “digital twin” of an organization
@@ -34,9 +48,9 @@ A Tier 0 package is a bundle containing all Tier 1–4 UAPFs.
 - Includes enterprise-wide identity, compliance, resource bindings, and integrations
 - Suitable for migration, simulation, cloning, training and testing AI agents
 
-**Recommended Structure:**
+**Recommended Structure (informative)**
 
-```
+```text
 enterprise.uapf/
   manifest.json
   tier1/
@@ -53,274 +67,183 @@ enterprise.uapf/
     provenance.json
 ```
 
-**Execution:**
-A Tier 0 UAPF can be loaded into an enterprise orchestration engine or an AI agent cluster, reconstructing the entire behavioral model of the organization.
+### 4.1.2 Tier 1 — Enterprise Domain Algorithms
 
-### ⭐ Tier 1 — Enterprise Domain Algorithms
+**Purpose**
 
-**Purpose:**
-Define the top-level enterprise capabilities that every organization possesses.
+Tier 1 defines the top-level enterprise domains that every organization possesses, such as:
 
-**Examples:**
+Finance
 
-- Finance
-- HR
-- Customer Lifecycle
-- IT Operations
-- Supply Chain
-- Product Lifecycle
-- Risk & Compliance
+Human Resources
 
-Tier 1 UAPFs provide high-level process structure, not detailed flows.
+Customer / Citizen Lifecycle
 
-**Characteristics:**
+IT Operations
 
-- Foundational, stable over years
+Supply Chain
+
+Product / Service Lifecycle
+
+Risk & Compliance
+
+A Tier 1 UAPF describes the high-level process structure of a domain and references one or more
+Tier 2 UAPFs for concrete implementations.
+
+**Characteristics**
+
+- Foundational and stable over time
 - Serve as domain “entry points”
 - Contain references to multiple Tier 2 modules
-- Define enterprise-wide policies and invariants
+- Capture domain-wide policies and invariants
 
-**Recommended Structure:**
+### 4.1.3 Tier 2 — Cross-Functional Domain Processes
 
-```
-finance.uapf/
-  manifest.json
-  process/bpmn.xml        (high-level domain BPMN)
-  dependencies:
-    tier2/invoice-processing.uapf
-    tier2/record-to-report.uapf
-  metadata/
-    compliance.json
-```
+**Purpose**
 
-### ⭐ Tier 2 — Cross-Functional Domain Processes
+Tier 2 represents operational workflows that span multiple departments within a domain.
 
-**Purpose:**
-Represent operational workflows that span multiple departments but belong to a domain.
+Examples include:
 
-**Examples:**
+Invoice-to-Pay
 
-- Invoice-to-Pay
-- Order-to-Cash
-- Hire-to-Retire
-- Incident-to-Resolution
-- Customer Onboarding
+Order-to-Cash
 
-**Characteristics:**
+Hire-to-Retire
 
-- Contain real executable logic
-- Reference Tier 3 sub-processes
-- Include decisions (DMN), case logic (CMMN), and tasks
+Incident-to-Resolution
 
-**Recommended Structure:**
+Customer Onboarding
 
-```
-invoice-processing.uapf/
-  manifest.json
-  process/bpmn.xml
-  decisions/*.dmn
-  dependencies:
-    tier3/vat-check-latvia.uapf
-    tier3/vat-check-germany.uapf
-  agents/
-    roles.json
-    capabilities.json
-```
+**Characteristics**
 
-### ⭐ Tier 3 — Department / Regional Sub-Processes
+- Contain executable workflow logic
+- May include BPMN, DMN, and CMMN models
+- Reference Tier 3 subprocesses as reusable components
+- Are reused by multiple departments
 
-**Purpose:**
-Capture variations, regional rules, or detailed sub-processes.
+### 4.1.4 Tier 3 — Department / Regional Subprocesses
 
-**Examples:**
+**Purpose**
 
-- HR Onboarding — Latvia
-- HR Onboarding — Germany
-- Finance VAT Workflow — Latvia
-- Sales Contract Review — Legal Department
+Tier 3 UAPFs capture organization-specific or region-specific variants of domain processes.
 
-**Characteristics:**
+Examples:
 
-- Represent organization-specific or region-specific logic
+Finance VAT workflow — Latvia
+
+Finance VAT workflow — Germany
+
+HR onboarding — IT department
+
+Sales contract review — Legal department
+
+**Characteristics**
+
+- Implement detailed subprocesses and local variations
 - Reference Tier 4 atomic tasks
 - Often contain more detailed BPMN than Tier 1 or 2
+- Encode local compliance, regulatory or policy differences
 
-**Recommended Structure:**
+### 4.1.5 Tier 4 — Atomic Task Algorithms
 
-```
-vat-check-latvia.uapf/
-  manifest.json
-  process/bpmn.xml
-  decisions/vat-rules-lv.dmn
-  dependencies:
-    tier4/validate-document-format.uapf
-    tier4/extract-invoice-fields.uapf
-  metadata/
-    compliance.json
-```
+**Purpose**
 
-### ⭐ Tier 4 — Atomic Tasks (“Executable Algorithm Units”)
+Tier 4 defines small, reusable tasks that form the building blocks of higher tiers.
 
-**Purpose:**
-Define the smallest reusable algorithms in the enterprise.
+Examples:
 
-**Examples:**
+Extract fields from an ID document
 
-- Extract fields from ID document
-- Validate invoice format
-- Apply risk scoring formula
-- Generate email template
-- Perform simple compliance check
+Validate invoice format
 
-These are the building blocks used by all higher tiers.
+Apply a risk scoring formula
 
-**Characteristics:**
+Generate an email template
 
-- Very small UAPFs
-- AI agents execute these directly via MCP tools
-- Purely functional and context-independent
+Perform a simple compliance check
 
-**Recommended Structure:**
+**Characteristics**
 
-```
-validate-document-format.uapf/
-  manifest.json
-  process/bpmn.xml (minimal)
-  rules/dmn.json (optional)
-  integrations/mcp-tools.json
-```
+- Smallest units of executable behavior
+- Directly executable by AI agents, RPA bots, or workflow engines
+- Context-independent and reusable across multiple processes
+- Often mapped directly to MCP tools or other agent capabilities
 
 ## 4.2 Dependency Rules
 
-Tier dependencies are strictly hierarchical:
+Dependencies between tiers are strictly hierarchical.
 
-- Tier 0 → contains Tier 1–4
-- Tier 1 → depends on Tier 2
-- Tier 2 → depends on Tier 3
-- Tier 3 → depends on Tier 4
-- Tier 4 → no dependencies
+Tier 0 may contain and reference Tier 1, 2, 3, and 4 UAPFs.
 
-Cross-tier upward references are forbidden.
-This ensures clean, composable enterprise models.
+Tier 1 may reference Tier 2 UAPFs.
 
-Each manifest.json MUST declare:
+Tier 2 may reference Tier 3 UAPFs.
 
-```
-"dependencies": [
-  "tier3/vat-check-latvia@^1.0.0",
-  "tier4/validate-document-format@^2.1.0"
-]
-```
+Tier 3 may reference Tier 4 UAPFs.
+
+Tier 4 MUST NOT depend on higher tiers.
+
+In manifest.json, dependencies are declared explicitly. For example:
+
+{
+  "id": "invoice-processing",
+  "tier": 2,
+  "version": "1.3.0",
+  "dependencies": [
+    "tier3/vat-check-latvia@^1.0.0",
+    "tier4/validate-document-format@^2.1.0"
+  ]
+}
+
+
+Normative rule:
+A UAPF MUST NOT declare a dependency on a UAPF at a higher tier number (e.g. Tier 3 depending on Tier 2).
 
 ## 4.3 Resource Binding Across Tiers
 
-Resource bindings (roles, identities, capabilities, integrations) must follow:
+Resource definitions (roles, agents, systems, capabilities) are defined and resolved across tiers as follows:
 
-- Declared at the lowest applicable tier
-- Inherited upward as needed
-- Overridden only at Tier 3
+Tier 4 tasks declare the capabilities required to execute them (e.g. “validate-document-format”).
 
-**Example:**
+Tier 3 subprocesses bind those capabilities to concrete roles or agents for a given organization or region.
 
-- Tier 4 defines capability “validate-format”
-- Tier 3 inherits and binds local agents (e.g. FinanceBot_LV)
-- Tier 2 uses the task without redefining resources
-- Tier 1 remains implementation-independent
+Tier 2 processes orchestrate Tier 3 subprocesses and typically do not redefine resources.
 
-This ensures predictable composition.
+Tier 1 domain definitions remain mostly implementation-independent, referring to domain concepts rather than concrete agents.
+
+Tier 0 may contain global resource maps and identity bindings used to reconstruct the environment in a new deployment.
+
+The detailed resource and identity model is defined in the Resource Model Specification (see resource_model.md or equivalent).
 
 ## 4.4 Execution Model Across Tiers
 
-When a Tier 0 package is loaded:
+When a Tier 0 bundle is loaded into a UAPF-compliant runtime:
 
-- The dependency graph is resolved
-- Tier 4 tasks are registered as atomic capabilities
-- Tier 3 workflows bind tasks to roles or agents
-- Tier 2 processes orchestrate Tier 3 modules
-- Tier 1 defines domain entry points
+The runtime reads the Tier 0 manifest and resolves the full dependency graph of Tier 1–4 UAPFs.
 
-AI agents or orchestration engines execute the hierarchy
+Tier 4 task packages are registered as atomic capabilities.
 
-This enables full enterprise reconstruction from a single package.
+Tier 3 subprocesses bind tasks to roles, agents, and systems using the resource model.
 
-## 4.5 Tier 0 Packaging Format
+Tier 2 domain processes orchestrate Tier 3 subprocesses to implement end-to-end flows.
 
-A Tier 0 bundle may be:
+Tier 1 domain entries expose high-level operations (e.g. “Process Invoice”, “Onboard Employee”).
 
-- .uapf-bundle (recommended new format)
-- or .uapf with special bundle manifest
+AI agents, workflow engines, or other orchestrators execute processes according to this hierarchy.
 
-**Bundle manifest:**
+This model allows a complete enterprise behavior to be represented, transported, and reconstructed
+from a single Tier 0 bundle.
 
-```
-{
-  "type": "bundle",
-  "tier": 0,
-  "domains": ["finance", "hr", "it"],
-  "specVersion": "1.0",
-  "dependencies": [
-    "tier1/finance.uapf",
-    "tier1/hr.uapf",
-    ...
-  ]
-}
-```
+## 4.5 Relationship to Other Specification Chapters
 
-## 📁 Where This Goes in the GitHub Organization
+The package structure of a single UAPF (folders like process/, decisions/, agents/, integration/, metadata/)
+is specified in the package structure chapter.
 
-(Under https://github.com/UAPFormat)
+The resource and identity model (roles, capabilities, bindings) is specified in the resource model chapter.
 
-To properly integrate this specification:
+The algorithmation architecture layers (audit, identity, decision logic, risk, human-in-the-loop) are described in
+the architecture deep dive (algorithmation_deep_dive.md).
 
-1. Add a new folder in the UAPF-Specification repository
-
-   - Repo: https://github.com/UAPFormat/UAPF-Specification
-   - New folder: `specification/04-tier-hierarchy/`
-   - Create file: `04-tier-hierarchy.md`
-   - Paste the full chapter there.
-
-2. Update main specification index
-
-   - File: `specification/index.md`
-   - Add: `- [Chapter 4: Multi-Tier Enterprise Algorithm Hierarchy](04-tier-hierarchy/04-tier-hierarchy.md)`
-
-3. Update the UAPF README to reference tiers
-
-   - Repo: `UAPFormat/UAPF-Specification`
-   - Add a section:
-
-```
-## UAPF Enterprise Hierarchy (Tier 0–4)
-UAPF supports hierarchical structuring of algorithms...
-(Insert summary paragraph)
-```
-
-4. Add example files to UAPF-Examples repo
-
-   - Repo: https://github.com/UAPFormat/UAPF-Examples
-   - Create folders:
-
-```
-tiers/
-  tier0-enterprise/
-  tier1-domain/
-  tier2-process/
-  tier3-subprocess/
-  tier4-tasks/
-```
-
-   - Populate with:
-     - empty example .uapf templates
-     - example manifests
-     - sample BPMN/DMN
-
-5. OPTIONAL (Highly recommended):
-
-   - Create new repo: `UAPFormat/UAPF-Tier0-Library`
-   - A collection of:
-     - Tier 1 templates
-     - Tier 2 templates
-     - Tier 3 variations
-     - Tier 4 reusable atomic tasks
-
-   This would be the official “UAPF Core Library.”
+The tier hierarchy in this chapter describes how UAPF packages are composed across the enterprise.
+It does not constrain the internal modeling notation beyond what is defined in those other chapters.
