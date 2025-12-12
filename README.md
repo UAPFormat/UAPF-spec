@@ -1,3 +1,16 @@
+## ⚖ Normative Authority (SSOT)
+
+This repository is the **Single Source of Truth (SSOT)** for the UAPF specification.
+
+**Normative sources:**
+- `/specification/**`
+- `/schemas/**`
+
+All other UAPF repositories, websites, examples, and blog posts are **informative** and **non-normative**.
+If any content contradicts this repository, **this repository prevails**.
+
+Machine-readable authority: `./authority.json`
+
 # Unified Algorithmic Process Format (UAPF)
 
 ![Status: Draft](https://img.shields.io/badge/status-draft-orange)
@@ -14,7 +27,7 @@ UAPF (Unified Algorithmic Process Format) is an open, machine-readable standard 
 
 The normative UAPF specification is maintained in the `specification/` directory.
 
-- [Specification Index](specification/index.md)
+- [Specification Index](specification/README.md)
 - [Algorithmation Architecture Deep Dive](algorithmation_deep_dive.md)
 - [Tier 0–Tier 4 Enterprise Hierarchy](specification/04-tier-hierarchy/04-tier-hierarchy.md)
 

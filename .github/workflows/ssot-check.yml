@@ -1,0 +1,24 @@
+name: SSOT Checks
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  ssot:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Check SSOT files exist
+        run: |
+          test -f authority.json
+          test -f SPEC_VERSION
+          test -f specification/00-authority-and-normativity.md
+          test -f schemas/README.md
+          test -f specification/README.md
+
+      - name: Ensure README declares SSOT
+        run: |
+          grep -q "Single Source of Truth (SSOT)" README.md
+          grep -q "Machine-readable authority" README.md

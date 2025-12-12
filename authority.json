@@ -1,0 +1,25 @@
+{
+  "specification": "UAPF",
+  "repository": "UAPFormat/UAPF-spec",
+  "authority": "normative",
+  "ssot": true,
+  "version": "0.9",
+  "normative_paths": [
+    "/specification/",
+    "/schemas/"
+  ],
+  "informative_paths": [
+    "/examples/",
+    "/docs/",
+    "/website/"
+  ],
+  "precedence": [
+    "schemas",
+    "specification_text",
+    "appendices",
+    "examples",
+    "website",
+    "other_repos"
+  ],
+  "canonical_url": "https://github.com/UAPFormat/UAPF-spec"
+}

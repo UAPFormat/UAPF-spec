@@ -1,5 +1,7 @@
 # UAPF Specification Index
 
+
+- [00: Authority and Normativity](00-authority-and-normativity.md)
 - [Algorithmation Architecture Deep Dive](../algorithmation_deep_dive.md)
 - [Chapter 4: Multi-Tier Enterprise Algorithm Hierarchy (Tier 0–Tier 4)](04-tier-hierarchy/04-tier-hierarchy.md)
 
